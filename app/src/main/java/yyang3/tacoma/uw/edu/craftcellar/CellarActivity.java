@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class CellarActivity extends AppCompatActivity {
 
@@ -26,6 +27,9 @@ public class CellarActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container, new LoginFragment()).commit();
     }
 
     @Override
@@ -49,4 +53,26 @@ public class CellarActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void SignIn(View v) {
+        Toast.makeText(this, "Sign in linked fine", Toast.LENGTH_LONG).show();
+    }
+
+    public void Register(View v) {
+        RegistrationFragment temp = new RegistrationFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container, temp).commit();
+    }
+//    @Override
+//    public void SignIn () {
+//        Toast.makeText(this, "Sign in linked fine",Toast.LENGTH_LONG).show();
+//    }
+//
+//
+//    @Override
+//    public void Register() {
+//        RegistrationFragment temp = new RegistrationFragment();
+//        getSupportFragmentManager().beginTransaction().
+//                replace(R.id.fragment_container, temp).commit();
+//    }
 }

@@ -55,13 +55,21 @@ public class CellarActivity extends AppCompatActivity {
     }
 
     public void SignIn(View v) {
-        Toast.makeText(this, "Sign in linked fine", Toast.LENGTH_LONG).show();
+        BeverageKindFragment temp = new BeverageKindFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container, temp).addToBackStack(null).commit();
+    }
+
+    public void toRegister(View v) {
+        RegistrationFragment temp = new RegistrationFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container, temp).addToBackStack(null).commit();
     }
 
     public void Register(View v) {
-        RegistrationFragment temp = new RegistrationFragment();
+        BeverageKindFragment temp = new BeverageKindFragment();
         getSupportFragmentManager().beginTransaction().
-                replace(R.id.fragment_container, temp).commit();
+                replace(R.id.fragment_container, temp).addToBackStack(null).commit();
     }
 //    @Override
 //    public void SignIn () {

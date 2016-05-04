@@ -27,6 +27,7 @@ public class LoginFragment extends Fragment {
     private EditText mEmail;
     private EditText mPwd;
 
+
     private SignInListener mListener;
 
     public LoginFragment() {
@@ -78,7 +79,7 @@ public class LoginFragment extends Fragment {
                 }
 
                 String url = buildCourseURL(v);
-                mListener.SignIn(url);
+                mListener.SignIn(userId, url);
             }
         });
 
@@ -96,9 +97,10 @@ public class LoginFragment extends Fragment {
         }
     }
 
+
     //
     public interface SignInListener {
-        public void SignIn(String url);
+        public void SignIn(String email, String url);
     }
 
     private String buildCourseURL(View v) {

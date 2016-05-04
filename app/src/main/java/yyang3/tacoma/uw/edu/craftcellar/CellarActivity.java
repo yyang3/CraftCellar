@@ -1,5 +1,8 @@
 package yyang3.tacoma.uw.edu.craftcellar;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +21,19 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CellarActivity extends AppCompatActivity implements RegistrationFragment.UserRegistrationListener, LoginFragment.SignInListener {
+import yyang3.tacoma.uw.edu.craftcellar.Beverage.Beverage;
+
+public class CellarActivity extends AppCompatActivity implements RegistrationFragment.
+        UserRegistrationListener, LoginFragment.SignInListener,
+        BeverageKindFragment.allBeverageInteractionListener, BeverageListFragment.OnListFragmentInteractionListener {
+
+
+    private SharedPreferences mSharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +50,16 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                         .setAction("Action", null).show();
             }
         });
+        mSharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS),
+                Context.MODE_PRIVATE);
+        if (!mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,
+                    new LoginFragment()).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new BeverageKindFragment()).addToBackStack(null).commit();
+        }
 
-        getSupportFragmentManager().beginTransaction().
-                replace(R.id.fragment_container, new LoginFragment()).commit();
     }
 
     @Override
@@ -58,7 +77,12 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logout) {
+            SharedPreferences temp = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+            temp.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();
+
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container, new LoginFragment()).commit();
             return true;
         }
 
@@ -93,22 +117,35 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
     }
 
     @Override
-    public void SignIn(String url) {
+    public void SignIn(String email, String url) {
+        mSharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), true).commit();
         LoginTask task = new LoginTask();
-        task.execute(new String[]{url.toString()});
+        task.execute(new String[]{url});
+
+        try {
+            OutputStreamWriter userEmailWriter = new OutputStreamWriter(openFileOutput(
+                    getString(R.string.LOGIN_FILE), Context.MODE_PRIVATE));
+            userEmailWriter.write(email);
+            userEmailWriter.close();
+            Toast.makeText(this, "Stored in successfully!", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
-//    @Override
-//    public void SignIn () {
-//        Toast.makeText(this, "Sign in linked fine",Toast.LENGTH_LONG).show();
-//    }
-//
-//
-//    @Override
-//    public void Register() {
-//        RegistrationFragment temp = new RegistrationFragment();
-//        getSupportFragmentManager().beginTransaction().
-//                replace(R.id.fragment_container, temp).commit();
-//    }
+
+    @Override
+    public void allBeverageList() {
+        BeverageListFragment temp = new BeverageListFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container, temp).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onListFragmentInteraction(Beverage item) {
+
+    }
+
 
     private class AddUserTask extends AsyncTask<String, Void, String> {
 
@@ -235,9 +272,23 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "user successfully logged in!"
+                    String username = (String) jsonObject.get("username");
+                    Toast.makeText(getApplicationContext(), username
                             , Toast.LENGTH_LONG)
                             .show();
+                    setTitle(username + "'s Cellar");
+                    try {
+                        OutputStreamWriter usernameWriter = new OutputStreamWriter(openFileOutput(
+                                getString(R.string.LOGIN_USERNAME), Context.MODE_PRIVATE));
+                        usernameWriter.write(username);
+                        usernameWriter.close();
+                        Toast.makeText(CellarActivity.this, "Stored in successfully!",
+                                Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Bundle user = new Bundle();
+                    user.putString(BeverageKindFragment.USER, username);
                     BeverageKindFragment temp = new BeverageKindFragment();
                     getSupportFragmentManager().beginTransaction().
                             replace(R.id.fragment_container, temp).addToBackStack(null).commit();

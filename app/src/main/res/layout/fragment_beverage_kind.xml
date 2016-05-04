@@ -1,10 +1,53 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="yyang3.tacoma.uw.edu.craftcellar.BeverageKindFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/display_header"
+        android:text="Hello "
+        android:textAlignment="center"
+        android:textSize="100px"
+        android:layout_gravity="top" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/all"
+        android:layout_gravity="center"
+        android:text="Celler for all beverage"
+        android:onClick="allBeverageList" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/beer"
+        android:layout_gravity="center"
+        android:text="Celler for beer" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rum"
+        android:layout_gravity="center"
+        android:text="Celler for rum" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/wine"
+        android:text="Celler for wine" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/whisky"
+        android:text="Celler for whisky" />
 
 
-</FrameLayout>
+</LinearLayout>

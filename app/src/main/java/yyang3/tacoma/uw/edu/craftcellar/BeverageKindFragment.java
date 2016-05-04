@@ -1,11 +1,20 @@
 package yyang3.tacoma.uw.edu.craftcellar;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 /**
@@ -13,7 +22,9 @@ import android.view.ViewGroup;
  */
 public class BeverageKindFragment extends Fragment {
 
+    public static final String USER = "User";
 
+    private allBeverageInteractionListener allCellar;
     public BeverageKindFragment() {
         // Required empty public constructor
     }
@@ -23,7 +34,53 @@ public class BeverageKindFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_beverage_kind, container, false);
+        View v = inflater.inflate(R.layout.fragment_beverage_kind, container, false);
+        String user = null;
+        try {
+            InputStream emailReader = getActivity().
+                    openFileInput(getString(R.string.LOGIN_USERNAME));
+            if (emailReader != null) {
+                InputStreamReader temp = new InputStreamReader(emailReader);
+                BufferedReader theReader = new BufferedReader(temp);
+
+                StringBuilder t = new StringBuilder();
+                while ((user = theReader.readLine()) != null) {
+                    t.append(user);
+                }
+                emailReader.close();
+                user = t.toString();
+                Toast.makeText(getActivity(), user, Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (user != null) {
+            TextView greeting = (TextView) v.findViewById(R.id.display_header);
+            greeting.setText("Welcome back " + user + "!");
+        }
+        Button allBeverage = (Button) v.findViewById(R.id.all);
+        allBeverage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allCellar.allBeverageList();
+            }
+        });
+        return v;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof allBeverageInteractionListener) {
+            allCellar = (allBeverageInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + "must implement UserRegistrationListener");
+        }
+    }
+
+    public interface allBeverageInteractionListener {
+        public void allBeverageList();
     }
 
 }

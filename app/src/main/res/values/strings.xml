@@ -10,4 +10,16 @@
 
     <!-- Register Fragment -->
     <string name="register_username">Username</string>
+
+    <!-- menu -->
+    <string name="log_out">Log out</string>
+
+
+    <!--Log in status-->
+    <string name="LOGIN_PREFS"> edu.uw.tacoma.team3.CraftCellar.PREFS</string>
+    <string name="LOGGEDIN">loggedin</string>
+
+    <!--log in data stored-->
+    <string name="LOGIN_FILE"> edu.uw.tacoma.yyang3.CraftCellar.LOGIN_FILE</string>
+    <string name="LOGIN_USERNAME"> edu.uw.tacoma.yyang3.CraftCellar.LOGIN_USER</string>
 </resources>

@@ -37,8 +37,8 @@ public class MyBeverageRecyclerViewAdapter extends RecyclerView.Adapter<MyBevera
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mBeverages = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getMemail());
-        holder.mContentView.setText(Integer.toString(mValues.get(position).getMid()));
+        holder.mIdView.setText(mValues.get(position).getmBrand());
+        holder.mContentView.setText(mValues.get(position).getmTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -144,6 +144,15 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
     @Override
     public void onListFragmentInteraction(Beverage item) {
 
+        BeverageDetailFragment beverageDetailFragment = new BeverageDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(BeverageDetailFragment.BEVERAGE_ITEM_SELECTED, item);
+        beverageDetailFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, beverageDetailFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 

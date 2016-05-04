@@ -8,6 +8,17 @@
     <string name="sign_in_button">Sign in</string>
     <string name="register_button">Register</string>
 
+    <string name="beverage_brand">Brand</string>
+    <string name="beverage_title">Title</string>
+    <string name="beverage_year">Year</string>
+    <string name="beverage_abv">Alcohol</string>
+    <string name="beverage_description">Description</string>
+    <string name="beverage_style">Style</string>
+    <string name="beverage_rating">Rating</string>
+
+    <string name="edit_confirm">Confirm</string>
+    <string name="edit_cancel">Cancel</string>
+
     <!-- Register Fragment -->
     <string name="register_username">Username</string>
 
@@ -22,4 +33,7 @@
     <!--log in data stored-->
     <string name="LOGIN_FILE"> edu.uw.tacoma.yyang3.CraftCellar.LOGIN_FILE</string>
     <string name="LOGIN_USERNAME"> edu.uw.tacoma.yyang3.CraftCellar.LOGIN_USER</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,5 +1,9 @@
 package yyang3.tacoma.uw.edu.craftcellar.Beverage;
 
+/*
+ * Craft Cellar: Beverage
+ */
+
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,11 +21,11 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
- */
+ * This class is a model for a Beverage
+ *
+ * @author Tyler Braden and Yicong Yang
+ * @version 1.0.0 alpha
+*/
 public class Beverage implements Serializable {
 
 
@@ -38,19 +42,33 @@ public class Beverage implements Serializable {
     private String myBtype;
     private String mStyle;
 
+    /**URL String for email*/
     public static final String EMAIL = "email";
+    /**URL String for id*/
     public static final String ID = "id";
+    /**URL String for iamgeadd*/
     public static final String IMAGEADD = "imageadd";
+    /**URL String for description*/
     public static final String DESCRIPTION = "description";
+    /**URL String for rate */
     public static final String RATE = "rate";
+    /**URL String for brand*/
     public static final String BRAND = "brand";
+    /**URL String for title*/
     public static final String TITLE = "title";
+    /**URL String for location*/
     public static final String LOCATION = "location";
+    /**URL String for image */
     public static final String IMAGE = "image";
+    /**URL String for beverage description */
     public static final String BDES = "bdescription";
+    /**URL String for brew year */
     public static final String BYEAR = "Brewyear";
+    /**URL String for beverage type */
     public static final String BTYPE = "btype";
+    /**URL String for style */
     public static final String STYLE = "style";
+    /**URL String for percentage */
     public static final String PERCENTAGE = "percentage";
 
 
@@ -110,7 +128,22 @@ public class Beverage implements Serializable {
         this.mStyle = mStyle;
     }
 
-
+    /**
+     * constructor for our beverage model
+     *
+     * @param memail string representing an email
+     * @param mid string representing id
+     * @param mImageAdd string representing image url
+     * @param mDescription string representing description
+     * @param rate integer representing the beverage rating
+     * @param mBrand string representing the brand
+     * @param mTitle string representing the beverage name
+     * @param mLocation string representing location
+     * @param mByear integer representing the drink's creation year
+     * @param mPercentage integer representing the alcohol percentage
+     * @param myBtype string representing type of drink
+     * @param mStyle string representing style of drink
+     */
     public Beverage(String memail, int mid,
                     String mImageAdd, String mDescription, int rate,
                     String mBrand, String mTitle, String mLocation,
@@ -169,6 +202,13 @@ public class Beverage implements Serializable {
         this.rate = rate;
     }
 
+    /**
+     * parses our json object to return a string representation of a beverage model
+     *
+     * @param beverageJSON the json information of a beverage
+     * @param BeverageList list of beverages
+     * @return string beverage
+     */
     public static String parseBeveragesJSON(String beverageJSON, List<Beverage> BeverageList) {
         String reason = null;
         if (beverageJSON != null) {

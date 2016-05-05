@@ -1,5 +1,9 @@
 package yyang3.tacoma.uw.edu.craftcellar;
 
+/*
+ * Craft Cellar: My Beverage Recycler View Adapter
+ */
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,20 +17,30 @@ import yyang3.tacoma.uw.edu.craftcellar.BeverageListFragment.OnListFragmentInter
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Beverage} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
+ * The recycler view for the list fragment
+ *
+ * @author Tyler Braden and Yicong Yang
+ * @version 1.0.0 alpha
  */
 public class MyBeverageRecyclerViewAdapter extends RecyclerView.Adapter<MyBeverageRecyclerViewAdapter.ViewHolder> {
 
     private final List<Beverage> mValues;
     private final OnListFragmentInteractionListener mListener;
 
+    /**
+     * Constructor for the MyBeverageRecyclerViewAdapter
+     * @param items the list of beverages
+     * @param listener the listener for the beverage list
+     */
     public MyBeverageRecyclerViewAdapter(List<Beverage> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
 
+    /**
+     * {@inheritDoc}
+     * opens the fragment_beverage and returns its new viewHolder
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -34,9 +48,13 @@ public class MyBeverageRecyclerViewAdapter extends RecyclerView.Adapter<MyBevera
         return new ViewHolder(view);
     }
 
+    /**
+     * {@inheritDoc}
+     * displays the list of beverages one by one
+     */
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mBeverages = mValues.get(position);
+        holder.mBeverage = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getmBrand());
         holder.mContentView.setText(mValues.get(position).getmTitle());
 
@@ -46,7 +64,7 @@ public class MyBeverageRecyclerViewAdapter extends RecyclerView.Adapter<MyBevera
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mBeverages);
+                    mListener.onListFragmentInteraction(holder.mBeverage);
                 }
             }
         });
@@ -57,12 +75,23 @@ public class MyBeverageRecyclerViewAdapter extends RecyclerView.Adapter<MyBevera
         return mValues.size();
     }
 
+    /**
+     * Shows the beverage information item by item in this view
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
+        /**the current view being used */
         public final View mView;
+        /**the brand of beverage */
         public final TextView mIdView;
+        /**the title of beverage */
         public final TextView mContentView;
-        public Beverage mBeverages;
+        /**the current beverage */
+        public Beverage mBeverage;
 
+        /**
+         *Constructor for ViewHolder
+         * @param view the information for the view to be displayed
+         */
         public ViewHolder(View view) {
             super(view);
             mView = view;
@@ -70,6 +99,10 @@ public class MyBeverageRecyclerViewAdapter extends RecyclerView.Adapter<MyBevera
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 
+        /**
+         * {@inheritDoc}
+         * added the contentView information to the string.
+         */
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";

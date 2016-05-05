@@ -1,11 +1,13 @@
 package yyang3.tacoma.uw.edu.craftcellar;
 
+/*
+ * Craft Cellar: Login Fragment
+ */
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,12 @@ import java.net.URLEncoder;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * this class is for accessesing/logging users into the application.
+ *
+ * @author Tyler Braden and Yicong Yang
+ * @version 1.0.0 alpha
  */
 public class LoginFragment extends Fragment {
-//    private SignInListener signInListener;
-//    private RegisterListener rListener;
 
     private final static String LOG_IN_URL = "http://cssgate.insttech.washington.edu/~tbraden/user_php/login.php?";
     private EditText mEmail;
@@ -30,11 +33,17 @@ public class LoginFragment extends Fragment {
 
     private SignInListener mListener;
 
+    /** Required empty public constructor */
     public LoginFragment() {
-        // Required empty public constructor
+
     }
 
-
+    /**
+     * {@inheritDoc}
+     * Gets the entered text in the EditText field and stores it, then after the button is
+     * clicked the email and password are checked to see if they pass all requirements and finally
+     * the URL is sent to the signIn method.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,7 +87,7 @@ public class LoginFragment extends Fragment {
                     return;
                 }
 
-                String url = buildCourseURL(v);
+                String url = buildLoginURL(v);
                 mListener.SignIn(userId, url);
             }
         });
@@ -87,6 +96,10 @@ public class LoginFragment extends Fragment {
 
     }
 
+    /**
+     * {@inheritDoc}
+     * checks to make sure the context is a listener.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -97,13 +110,24 @@ public class LoginFragment extends Fragment {
         }
     }
 
-
-    //
+    /**
+     * Listener for the sign in button
+     */
     public interface SignInListener {
+        /**
+         * Signs the user in
+         * @param email string version of the user email
+         * @param url string version of the destination url
+         */
         public void SignIn(String email, String url);
     }
 
-    private String buildCourseURL(View v) {
+    /**
+     * Builds our string needed to send to the server with login information.
+     * @param v information regarding the view
+     * @return our url for interacting with our php code.
+     */
+    private String buildLoginURL(View v) {
 
         StringBuilder sb = new StringBuilder(LOG_IN_URL);
 
@@ -118,7 +142,6 @@ public class LoginFragment extends Fragment {
             sb.append("&pwd=");
             sb.append(URLEncoder.encode(pwd, "UTF-8"));
 
-            Log.i("Login", sb.toString());
 
         } catch (Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)

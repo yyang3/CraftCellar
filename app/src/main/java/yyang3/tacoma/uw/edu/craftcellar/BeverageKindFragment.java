@@ -1,5 +1,7 @@
 package yyang3.tacoma.uw.edu.craftcellar;
-
+/*
+ * Craft Cellar: Beverage Kind Fragment
+ */
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,18 +20,29 @@ import java.io.InputStreamReader;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * The main fragment that lists the categories of the cellars.
+ *
+ * @author Tyler Braden and Yicong Yang
+ * @version 1.0.0 alpha
  */
 public class BeverageKindFragment extends Fragment {
-
+    /**This is a string tag */
     public static final String USER = "User";
 
     private allBeverageInteractionListener allCellar;
+
+    /**
+     * Required empty public constructor
+     */
     public BeverageKindFragment() {
-        // Required empty public constructor
+
     }
 
-
+    /**
+     * {@inheritDoc}
+     *
+     * Gets the user email and username, then adds an onClicklistener to show cellar list.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +81,11 @@ public class BeverageKindFragment extends Fragment {
         return v;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Checks if our listener is attached.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -75,11 +93,15 @@ public class BeverageKindFragment extends Fragment {
         if (context instanceof allBeverageInteractionListener) {
             allCellar = (allBeverageInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString() + "must implement UserRegistrationListener");
+            throw new RuntimeException(context.toString() + "must implement allBeverageInteractionListener");
         }
     }
 
+    /**
+     * Listener to the "all beverage" button.
+     */
     public interface allBeverageInteractionListener {
+        /** show all beverage list. */
         public void allBeverageList();
     }
 

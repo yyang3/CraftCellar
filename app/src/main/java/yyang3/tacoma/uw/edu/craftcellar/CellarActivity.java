@@ -1,5 +1,9 @@
 package yyang3.tacoma.uw.edu.craftcellar;
 
+/*
+ * Craft Cellar: Cellar Activity
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +31,9 @@ import java.net.URL;
 
 import yyang3.tacoma.uw.edu.craftcellar.Beverage.Beverage;
 
+/**
+ * This is our main class that nests all of our classes and fragments.
+ */
 public class CellarActivity extends AppCompatActivity implements RegistrationFragment.
         UserRegistrationListener, LoginFragment.SignInListener,
         BeverageKindFragment.allBeverageInteractionListener, BeverageListFragment.OnListFragmentInteractionListener {
@@ -34,7 +41,10 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
 
     private SharedPreferences mSharedPreferences;
 
-
+    /**
+     * {@inheritDoc}
+     * launches our login fragment
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +72,10 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
 
     }
 
+    /**
+     * {@inheritDoc}
+     * passes our inflate method the menu "menu_cellar"
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -69,6 +83,10 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     * creates our logout feature.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -89,24 +107,20 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
         return super.onOptionsItemSelected(item);
     }
 
-//    public void SignIn(View v) {
-//        BeverageKindFragment temp = new BeverageKindFragment();
-//        getSupportFragmentManager().beginTransaction().
-//                replace(R.id.fragment_container, temp).addToBackStack(null).commit();
-//    }
-
+    /**
+     * access our registration fragment
+     * @param v our current view
+     */
     public void toRegister(View v) {
         RegistrationFragment temp = new RegistrationFragment();
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.fragment_container, temp).addToBackStack(null).commit();
     }
 
-//    public void Register(View v) {
-//        BeverageKindFragment temp = new BeverageKindFragment();
-//        getSupportFragmentManager().beginTransaction().
-//                replace(R.id.fragment_container, temp).addToBackStack(null).commit();
-//    }
-
+    /**
+     * {@inheritDoc}
+     * creates a new user and then takes you back to login page.
+     */
     @Override
     public void addUser(String url) {
         AddUserTask task = new AddUserTask();
@@ -116,6 +130,10 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
         getSupportFragmentManager().popBackStackImmediate();
     }
 
+    /**
+     * {@inheritDoc}
+     * sets the user URL to log the user in.
+     */
     @Override
     public void SignIn(String email, String url) {
         mSharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), true).commit();
@@ -134,6 +152,10 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
 
     }
 
+    /**
+     * {@inheritDoc}
+     *  creates and opens the beverage list fragment
+     */
     @Override
     public void allBeverageList() {
         BeverageListFragment temp = new BeverageListFragment();
@@ -141,6 +163,10 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                 replace(R.id.fragment_container, temp).addToBackStack(null).commit();
     }
 
+    /**
+     * {@inheritDoc}
+     * replaces current fragment with the beverageDetailFragment
+     */
     @Override
     public void onListFragmentInteraction(Beverage item) {
 
@@ -158,17 +184,12 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
 
     private class AddUserTask extends AsyncTask<String, Void, String> {
 
-
-        @Override
-        protected void onPreExecute() {
-            Log.i("User", "Pre");
-            super.onPreExecute();
-            Log.i("User", "Finish pre");
-        }
-
+        /**
+         * {@inheritDoc}
+         * Creates a new user.
+         */
         @Override
         protected String doInBackground(String... urls) {
-            Log.i("User", "do");
             String response = "";
             HttpURLConnection urlConnection = null;
             for (String url : urls) {
@@ -192,7 +213,6 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                         urlConnection.disconnect();
                 }
             }
-            Log.i("User", "After do");
             return response;
         }
 
@@ -231,12 +251,11 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
 
     private class LoginTask extends AsyncTask<String, Void, String> {
 
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
+        /**
+         * {@inheritDoc}
+         * creates url string for user login then connects to the server to see if
+         * user login was successful.
+         */
         @Override
         protected String doInBackground(String... urls) {
             String response = "";
@@ -262,7 +281,6 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                         urlConnection.disconnect();
                 }
             }
-            Log.i("User", "After do");
             return response;
         }
 

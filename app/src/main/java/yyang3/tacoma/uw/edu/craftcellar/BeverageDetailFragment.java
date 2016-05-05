@@ -1,5 +1,7 @@
 package yyang3.tacoma.uw.edu.craftcellar;
-
+/*
+ * Craft Cellar: Beverage Detail Fragment
+ */
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,21 +24,27 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
+
 
 import yyang3.tacoma.uw.edu.craftcellar.Beverage.Beverage;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * This class holds the information for each beverage selected
+ * for view from our beverage list.  This class shows the user all
+ * information regarding the beverage and also lets the user
+ * edit details regarding the beverage.
+ *
+ * @author Tyler Braden and Yicong Yang
+ * @version 1.0.0 alpha
  */
 public class BeverageDetailFragment extends Fragment {
-    public static final String BEVERAGE_ITEM_SELECTED = "richard sucks";
-
+    /**The string for showing currently selected beverage. */
+    public static final String BEVERAGE_ITEM_SELECTED = "tag";
+    /**the URL used for updating the beverage we have selected. */
     public static final String UPDATE_URL = "http://cssgate.insttech.washington.edu/~tbraden/user_php/beverageEdit.php?";
 
     private TextView mBrand;
@@ -49,12 +57,19 @@ public class BeverageDetailFragment extends Fragment {
     private TextView mRate;
     private Beverage mBeverage = null;
 
-
+    /**
+     * This empty constructor is required.
+     */
     public BeverageDetailFragment() {
-        // Required empty public constructor
+
     }
 
-
+    /**
+     * {@inheritDoc}
+     *
+     * This class locates each TextView and ImageView.
+     * added onClick methods to edit our description, image, and rate.
+     */
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,7 +131,13 @@ public class BeverageDetailFragment extends Fragment {
         return view;
     }
 
-
+    /**
+     * This method allows the user see all information of the beverage
+     * the user selected from the list.
+     *
+     * @param beverage the beverage being viewed
+     * @throws MalformedURLException
+     */
     public void updateView(Beverage beverage) throws MalformedURLException {
         mBeverage = beverage;
 
@@ -151,6 +172,11 @@ public class BeverageDetailFragment extends Fragment {
         }
     }
 
+    /**
+     * This class is used to update all of the information presented in the view created from
+     * this fragment.  This class runs a background thread to the URL that will return the
+     * feedback from the server.
+     */
     private class BeverageUpdateTask extends AsyncTask<String, Void, String> {
 
 
@@ -194,7 +220,7 @@ public class BeverageDetailFragment extends Fragment {
          * exception is caught. It tries to call the parse Method and checks to see if it was successful.
          * If not, it displays the exception.
          *
-         * @param result
+         * @param result json return from the php file
          */
         @Override
         protected void onPostExecute(String result) {
@@ -213,16 +239,30 @@ public class BeverageDetailFragment extends Fragment {
         }
     }
 
+    /**
+     * This class is used to get the image and populate on our fragment.
+     */
     public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
-
         private String url;
         private ImageView imageView;
 
+        /**
+         * This method is a constructor for our ImageLoadTask.
+         *
+         * @param url is the url for the image location
+         * @param imageView is our view location on fragment
+         */
         public ImageLoadTask(String url, ImageView imageView) {
             this.url = url;
             this.imageView = imageView;
         }
 
+        /**
+         * {@inheritDoc}
+         * Creates and returns a bitmap based on the image URL
+         * @param params the URL
+         * @return Bitmap image
+         */
         @Override
         protected Bitmap doInBackground(Void... params) {
             try {
@@ -241,6 +281,12 @@ public class BeverageDetailFragment extends Fragment {
             return null;
         }
 
+        /**
+         * {@inheritDoc}
+         * Sets our image Bitmap
+         *
+         * @param result the Bitmap image
+         */
         @Override
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);

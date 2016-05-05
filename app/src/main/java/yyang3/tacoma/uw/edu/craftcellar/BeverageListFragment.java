@@ -1,5 +1,9 @@
 package yyang3.tacoma.uw.edu.craftcellar;
 
+/*
+ * Craft Cellar: Beverage List Fragment
+ */
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,18 +29,15 @@ import yyang3.tacoma.uw.edu.craftcellar.Beverage.Beverage;
 
 
 /**
- * A fragment representing a list of Items.
- * <p>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ * This class is our fragment for showing the list of beverages the user has.
+ *
+ * @author Tyler Braden and Yicong Yang
+ * @version 1.0.0 alpha
  */
 public class BeverageListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    public static final String EMAIL = "Email";
 
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -52,16 +53,10 @@ public class BeverageListFragment extends Fragment {
     public BeverageListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static BeverageListFragment newInstance(int columnCount) {
-        BeverageListFragment fragment = new BeverageListFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    /**
+     * {@inheritDoc}
+     * Also checks the column count
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +66,10 @@ public class BeverageListFragment extends Fragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * gets the user email and builds the php string.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,7 +114,10 @@ public class BeverageListFragment extends Fragment {
         return view;
     }
 
-
+    /**
+     * {@inheritDoc}
+     * makes sure the context is an onlistfragmentlistener.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -127,6 +129,9 @@ public class BeverageListFragment extends Fragment {
         }
     }
 
+    /**
+     * removes the listener.
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -148,8 +153,16 @@ public class BeverageListFragment extends Fragment {
         void onListFragmentInteraction(Beverage item);
     }
 
+    /**
+     * This class downloads all of the beverages that will be populated into out list
+     * fragment.
+     */
     private class DownloadBeverageTask extends AsyncTask<String, Void, String> {
 
+        /**
+         * {@inheritDoc}
+         * connects with the server and builds our result string.
+         */
         @Override
         protected String doInBackground(String... urls) {
             String response = "";
@@ -178,9 +191,13 @@ public class BeverageListFragment extends Fragment {
             return response;
         }
 
+        /**
+         * {@inheritDoc}
+         * creates our beverage list and loads in into our list recyclerview.
+         */
         @Override
         protected void onPostExecute(String result) {
-            Log.i("parse", result);
+
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getActivity().getApplicationContext(),
                         result, Toast.LENGTH_SHORT).show();

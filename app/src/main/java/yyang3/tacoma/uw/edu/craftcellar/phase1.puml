@@ -1,0 +1,249 @@
+@startuml
+
+
+class BeverageDetailFragment {
+    + BEVERAGE_ITEM_SELECTED : String
+    + UPDATE_URL : String
+    - mBrand: TextView
+    - mTitle: TextView
+    - mStyle: TextView
+    - mYear: TextView
+    - mDescription: TextView
+    - mABV: TextView
+    - mImage: TextView
+    - mRate: TextView
+    - mBeverage: Beverage
+    + BeverageDetailFragment() <Constructor>
+    + updateView(Beverage beverage) : void
+    + onCreateView(final LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) : View
+    + onStart() : void
+
+}
+class BeverageUpdateTask{
+          + onPreExecute() : void
+          + doInBackground(String... urls) : String
+          + onPostExecute(String result) : void
+      }
+
+
+class ImageLoadTask {
+    - url: String
+    - imageView: ImageView
+    + doInBackground(Void... params) : Bitmap
+    + onPostExecute(Bitmap result) : void
+}
+
+class BeverageKindFragment {
+    + USER : String
+    - allCellar: allBeverageInteractionListener
+    + BeverageKindFragment() <Constructor>
+    +  onAttach(Context context) : void
+    + onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) : View
+
+}
+
+interface allBeverageInteractionListener {
+    + allBeverageList(): void
+}
+
+class RegistrationFragment {
+    - mListener : UserRegistrationListener
+    - mUserName : EditText
+    - mUserpw : EditText
+    - mUserEmail : EditText
+    - USER_ADD_URL : String
+    + RegistrationFragment() <Constructor>
+    + onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) : View
+    + onAttach(Context context) :  void
+    - buildUserURL(View v) : String
+}
+
+interface UserRegistrationListener {
+    + addUser(String url) : void;
+}
+
+class BeverageListFragment {
+    + ARG_COLUMN_COUNT : String
+    - int mColumnCount;
+    + BEVERAGE_URL : String
+    - mListener : OnListFragmentInteractionListener ;
+    - mRecyclerView : RecyclerView ;
+    + BeverageListFragment() <Constructor>
+    + onCreate(Bundle savedInstanceState) : void
+    + onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) : View
+    + onAttach(Context context) : void
+    + onDetach() : void
+
+}
+
+
+interface OnListFragmentInteractionListener {
+    + onListFragmentInteraction(Beverage item) : void;
+}
+
+class DownloadBeverageTask{
+    + doInBackground(String... urls) : String
+    + onPostExecute(String result) : void
+}
+
+class CellarActivity {
+    - mSharedPreferences :  SharedPreferences
+    + onCreate(Bundle savedInstanceState) : void
+    + onCreateOptionsMenu(Menu menu) : boolean
+    + onOptionsItemSelected(MenuItem item) : boolean
+    + toRegister(View v) : void
+    + addUser(String url) : void
+    + SignIn(String email, String url) : void
+    + allBeverageList() : void
+    + onListFragmentInteraction(Beverage item) : void
+}
+
+class AddUserTask{
+    + doInBackground(String... urls) : String
+    + onPostExecute(String result) : void
+}
+
+class LoginTask {
+    + doInBackground(String... urls) : String
+    + onPostExecute(String result) : void
+}
+class LoginFragment{
+    - LOG_IN_URL : String
+    - mEmail : EditText ;
+    - mPwd : EditText;
+    - mListener : SignInListener;
+    + LoginFragment() <Constructor>
+    + onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) : View
+    + onAttach(Context context) : void
+}
+
+interface SignInListener {
+    + SignIn(String email, String url) : void;
+}
+
+class MyBeverageRecyclerViewAdapter {
+    - mValues : List<Beverage>;
+    - mListener : OnListFragmentInteractionListener;
+    + MyBeverageRecyclerViewAdapter(List<Beverage> items,
+    OnListFragmentInteractionListener listener) < Constructor>
+    + onCreateViewHolder(ViewGroup parent, int viewType) : ViewHolder
+    + onBindViewHolder(final ViewHolder holder, int position) : void
+    + getItemCount() : int
+}
+
+
+
+
+class ViewHolder{
+    + mView : View;
+    + mIdView : TextView;
+    + mContentView : TextView;
+    + mBeverage : Beverage;
+    + toString() : String
+}
+
+class Beverage {
+     - String memail
+     - int mid
+     - String mImageAdd
+     - String mDescription
+     - int rate
+     - String mBrand
+     - String mTitle
+     - String mLocation
+     - int mByear
+     - int mPercentage
+     - String myBtype
+     - String mStyle
+     + String EMAIL
+     + String ID
+     + String IMAGEADD
+     + String DESCRIPTION
+     + String BRAND
+     + String TITLE
+     + String LOCATION
+     + String IMAGE
+     + String BDES
+     + String BYEAR
+     + String BTYPE
+     + String STYLE
+     + String PERCENTAGE
+     + getmBrand(): String
+     + setmBrand(String mBrand) :String
+     + getmTitle() : String
+     + setmTitle(String mTitle) : void
+     + getmLocation() : String
+     + setmLocation(String mLocation)  : void
+
+     + getmByear() : int
+     + setmByear(int mByear) : void
+
+     + getmPercentage() : int
+
+     + setmPercentage(int mPercentage) : void
+
+     + getMyBtype() :String
+
+     + setMyBtype(String myBtype) : void
+
+     + getmStyle() :String
+
+     + setmStyle(String mStyle) : void
+
+
+     + Beverage(String memail, int mid,
+                        String mImageAdd, String mDescription, int rate,
+                        String mBrand, String mTitle, String mLocation,
+                        int mByear, int mPercentage, String myBtype, String mStyle) <Constructor>
+
+     + getMemail()  :String
+     + setMemail(String memail)
+     + getMid()  : int
+     + setMid(int mid) : void
+     + getmImageAdd() :String
+
+     + setmImageAdd(String mImageAdd) : void
+
+     + getmDescription()  :String
+     + setmDescription(String mDescription) : void
+
+     +getRate(): int
+
+     + setRate(int rate) : void
+
+     + parseBeveragesJSON(String beverageJSON, List<Beverage> BeverageList) : String
+}
+
+MyBeverageRecyclerViewAdapter o-- Beverage
+MyBeverageRecyclerViewAdapter o-- OnListFragmentInteractionListener
+ViewHolder --> Beverage
+BeverageDetailFragment  ..> Beverage
+BeverageDetailFragment  ..> BeverageUpdateTask
+BeverageDetailFragment  ..> ImageLoadTask
+BeverageKindFragment  --> allBeverageInteractionListener
+RegistrationFragment  --> UserRegistrationListener
+BeverageListFragment --> OnListFragmentInteractionListener
+BeverageListFragment ..> DownloadBeverageTask
+OnListFragmentInteractionListener  ..> Beverage
+LoginFragment --> SignInListener
+CellarActivity <|.. OnListFragmentInteractionListener
+CellarActivity <|.. allBeverageInteractionListener
+CellarActivity <|.. SignInListener
+CellarActivity <|.. UserRegistrationListener
+CellarActivity ..> LoginFragment
+CellarActivity ..> BeverageKindFragment
+CellarActivity ..> RegistrationFragment
+CellarActivity ..> AddUserTask
+CellarActivity ..> LoginTask
+CellarActivity ..> BeverageListFragment
+CellarActivity ..> BeverageDetailFragment
+LoginTask ..> BeverageKindFragment
+RegistrationFragment --> UserRegistrationListener
+
+
+@enduml

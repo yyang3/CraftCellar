@@ -44,7 +44,6 @@ public class BeverageListFragment extends Fragment {
     private static final String BEVERAGE_URL = "http://cssgate.insttech." +
             "washington.edu/~tbraden/user_php/test.php?cmd=Cellar";
     private RecyclerView mRecyclerView;
-    private String mUserEmail;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

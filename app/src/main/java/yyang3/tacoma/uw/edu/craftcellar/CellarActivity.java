@@ -53,13 +53,8 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.hide();
+
         mSharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS),
                 Context.MODE_PRIVATE);
         if (!mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
@@ -157,8 +152,11 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
      *  creates and opens the beverage list fragment
      */
     @Override
-    public void allBeverageList() {
+    public void allBeverageList(String Kind) {
         BeverageListFragment temp = new BeverageListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("Kind", Kind);
+        temp.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.fragment_container, temp).addToBackStack(null).commit();
     }

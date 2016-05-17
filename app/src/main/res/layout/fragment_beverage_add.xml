@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="yyang3.tacoma.uw.edu.craftcellar.BeverageDetailFragment">
+    tools:context="yyang3.tacoma.uw.edu.craftcellar.BeverageAddFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,84 +16,83 @@
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="@string/beverage_brand" />
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beverage_brand"
-                android:id="@+id/detail_brand" />
+                android:hint="@string/beverage_brand"
+                android:id="@+id/detail_brand_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="@string/beverage_title" />
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beverage_title"
-                android:id="@+id/detail_title" />
+                android:hint="@string/beverage_title"
+                android:id="@+id/detail_title_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="@string/beverage_style" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/beverage_style"
+                android:id="@+id/detail_style_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beverage_style"
-                android:id="@+id/detail_style" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="100dp"
+                android:textSize="30dp"
                 android:text="@string/beverage_year" />
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beverage_year"
-                android:id="@+id/detail_year" />
+                android:hint="@string/beverage_year"
+                android:id="@+id/detail_year_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="@string/beverage_abv" />
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/beverage_abv"
-                android:id="@+id/detail_abv" />
+                android:id="@+id/detail_abv_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="@string/beverage_description" />
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beverage_description"
-                android:id="@+id/detail_description" />
+                android:hint="@string/beverage_description"
+                android:id="@+id/detail_description_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="Image" />
-            <ImageView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/detail_image" />
+                android:text="Add image"
+                android:id="@+id/detail_image_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="@string/beverage_rating" />
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/beverage_rating"
-                android:id="@+id/detail_rating" />
+                android:id="@+id/detail_rating_add" />
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </FrameLayout>

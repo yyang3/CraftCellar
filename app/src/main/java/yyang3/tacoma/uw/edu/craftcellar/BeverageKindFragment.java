@@ -72,12 +72,42 @@ public class BeverageKindFragment extends Fragment {
             greeting.setText("Welcome back " + user + "!");
         }
         Button allBeverage = (Button) v.findViewById(R.id.all);
+        Button Beer = (Button) v.findViewById(R.id.beer);
+        Button Rum = (Button) v.findViewById(R.id.rum);
+        Button Wine = (Button) v.findViewById(R.id.wine);
+        Button Whiskey = (Button) v.findViewById(R.id.whisky);
         allBeverage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allCellar.allBeverageList();
+                allCellar.allBeverageList("All");
             }
         });
+        Beer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allCellar.allBeverageList("beer");
+            }
+        });
+        Rum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allCellar.allBeverageList("Rum");
+            }
+        });
+        Wine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allCellar.allBeverageList("Wine");
+            }
+        });
+        Whiskey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allCellar.allBeverageList("Whiskey");
+            }
+        });
+
+
         return v;
     }
 
@@ -102,7 +132,8 @@ public class BeverageKindFragment extends Fragment {
      */
     public interface allBeverageInteractionListener {
         /** show all beverage list. */
-        public void allBeverageList();
+        public void allBeverageList(String kind);
     }
+
 
 }

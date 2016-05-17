@@ -7,6 +7,8 @@ package yyang3.tacoma.uw.edu.craftcellar;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +53,7 @@ public class BeverageListFragment extends Fragment {
      */
     public BeverageListFragment() {
     }
+
 
     /**
      * {@inheritDoc}
@@ -106,9 +109,22 @@ public class BeverageListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String temp = BEVERAGE_URL + "&email=" + result;
+        Bundle bundle = this.getArguments();
+        String type = bundle.getString("Kind");
+        String temp = BEVERAGE_URL + "&email=" + result +  "&type=" + type;
         Log.i("ptt", temp);
         task.execute(new String[]{temp});
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+
+        fab.show();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         return view;
     }
@@ -214,7 +230,6 @@ public class BeverageListFragment extends Fragment {
             if (!beverageList.isEmpty()) {
                 mRecyclerView.setAdapter(new MyBeverageRecyclerViewAdapter(beverageList, mListener));
             }
-
 
         }
     }

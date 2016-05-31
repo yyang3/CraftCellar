@@ -15,9 +15,12 @@
     <string name="beverage_description">Description</string>
     <string name="beverage_style">Style</string>
     <string name="beverage_rating">Rating</string>
+    <string name="beverage_type">Type</string>
+    <string name="beverage_location">Location</string>
 
     <string name="edit_confirm">Confirm</string>
     <string name="edit_cancel">Cancel</string>
+    <string name="delete">Delete</string>
 
     <!-- Register Fragment -->
     <string name="register_username">Username</string>

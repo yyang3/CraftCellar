@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="CREATE_EMAIL_SQL">CREATE TABLE IF NOT EXISTS Email
+        (email VARCHAR(100)) </string>
+    <string name="DROP_EMAIL_SQL">DROP TABLE IF EXISTS Email </string>
+
+
+
+</resources>

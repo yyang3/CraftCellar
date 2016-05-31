@@ -5,12 +5,10 @@ package yyang3.tacoma.uw.edu.craftcellar;
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,18 +26,23 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
 
 import yyang3.tacoma.uw.edu.craftcellar.Beverage.Beverage;
+import yyang3.tacoma.uw.edu.craftcellar.data.EmailDB;
 
 /**
  * This is our main class that nests all of our classes and fragments.
  */
 public class CellarActivity extends AppCompatActivity implements RegistrationFragment.
         UserRegistrationListener, LoginFragment.SignInListener,
-        BeverageKindFragment.allBeverageInteractionListener, BeverageListFragment.OnListFragmentInteractionListener {
+        BeverageKindFragment.allBeverageInteractionListener, BeverageListFragment.OnListFragmentInteractionListener, BeverageAddFragment.AddListener {
 
 
     private SharedPreferences mSharedPreferences;
+    private String mEmail;
+
 
     /**
      * {@inheritDoc}
@@ -130,7 +133,8 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
      * sets the user URL to log the user in.
      */
     @Override
-    public void SignIn(String email, String url) {
+    public void SignIn(final String email, String url) {
+        mEmail = email;
         mSharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), true).commit();
         LoginTask task = new LoginTask();
         task.execute(new String[]{url});
@@ -141,11 +145,14 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
             userEmailWriter.write(email);
             userEmailWriter.close();
             Toast.makeText(this, "Stored in successfully!", Toast.LENGTH_LONG).show();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
 
     /**
      * {@inheritDoc}
@@ -177,6 +184,12 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                 .replace(R.id.fragment_container, beverageDetailFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void add(String url) {
+        BeverageAndCellarAddTask temp = new BeverageAndCellarAddTask();
+        temp.execute(new String[]{url});
     }
 
 
@@ -248,6 +261,7 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
     }
 
     private class LoginTask extends AsyncTask<String, Void, String> {
+        private EmailDB mEmailDB;
 
         /**
          * {@inheritDoc}
@@ -302,6 +316,24 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                             , Toast.LENGTH_LONG)
                             .show();
                     setTitle(username + "'s Cellar");
+
+                    if (mEmailDB == null) {
+                        mEmailDB = new EmailDB(CellarActivity.this);
+                    }
+                    mEmailDB.deleteEmail();
+
+                    // Also, add to the local database
+                    String email = (String) jsonObject.get("email");
+                    mEmailDB.insertEmail(mEmail);
+                    List<String> e = mEmailDB.getDB();
+                    StringBuilder t = new StringBuilder("Email listed: ");
+                    for (String temp : e) {
+                        t.append(temp);
+                        t.append("; ");
+                    }
+                    Toast.makeText(CellarActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+
+
                     try {
                         OutputStreamWriter usernameWriter = new OutputStreamWriter(openFileOutput(
                                 getString(R.string.LOGIN_USERNAME), Context.MODE_PRIVATE));
@@ -309,8 +341,8 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                         usernameWriter.close();
                         Toast.makeText(CellarActivity.this, "Stored in successfully!",
                                 Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception te) {
+                        te.printStackTrace();
                     }
                     Bundle user = new Bundle();
                     user.putString(BeverageKindFragment.USER, username);
@@ -330,6 +362,72 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                         e.getMessage(), Toast.LENGTH_LONG).show();
                 Log.i("User", e.getMessage());
 
+            }
+        }
+    }
+    /**
+     * This class is used to update all of the information presented in the view created from
+     * this fragment.  This class runs a background thread to the URL that will return the
+     * feedback from the server.
+     */
+    private class BeverageAndCellarAddTask extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    response = "Unable to update beverage, Reason: "
+                            + e.getMessage();
+                } finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            Log.i("User", "After do");
+            return response;
+        }
+
+
+        /**
+         * It checks to see if there was a problem with the URL(Network) which is when an
+         * exception is caught. It tries to call the parse Method and checks to see if it was successful.
+         * If not, it displays the exception.
+         *
+         * @param result json return from the php file
+         */
+        @Override
+        protected void onPostExecute(String result) {
+            // Something wrong with the network or the URL.
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String status = (String) jsonObject.get("result");
+                if (status.equals("success")) {
+                    Log.i("Beverage Update", "success");
+                } else {
+                    Log.i("Beverage Update", status);
+                }
+            } catch (JSONException e) {
+                Log.i("User", e.getMessage());
             }
         }
     }

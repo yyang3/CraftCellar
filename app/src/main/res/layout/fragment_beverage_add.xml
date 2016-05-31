@@ -76,22 +76,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
-                android:text="Image" />
-            <Button
-                android:layout_width="wrap_content"
+                android:text="@string/beverage_type" />
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add image"
-                android:id="@+id/detail_image_add" />
+                android:hint="@string/beverage_description"
+                android:id="@+id/detail_type_add" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
-                android:text="@string/beverage_rating" />
+                android:text="@string/beverage_location" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/beverage_rating"
-                android:id="@+id/detail_rating_add" />
+                android:hint="@string/beverage_location"
+                android:id="@+id/detail_location_add" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

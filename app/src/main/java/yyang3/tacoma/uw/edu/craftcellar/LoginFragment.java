@@ -27,6 +27,7 @@ import java.net.URLEncoder;
 public class LoginFragment extends Fragment {
 
     private final static String LOG_IN_URL = "http://cssgate.insttech.washington.edu/~tbraden/user_php/login.php?";
+    public final static int BUNDLE_ID = 1;
     private EditText mEmail;
     private EditText mPwd;
 
@@ -108,6 +109,14 @@ public class LoginFragment extends Fragment {
         } else {
             throw new RuntimeException(context.toString() + "must implement UserRegistrationListener");
         }
+    }
+
+    @Override
+    public void onDetach() {
+        Bundle bundle = new Bundle();
+        bundle.putString("Email", mEmail.getText().toString());
+        getActivity();
+        super.onDetach();
     }
 
     /**

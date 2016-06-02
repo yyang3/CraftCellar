@@ -376,6 +376,7 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
             HttpURLConnection urlConnection = null;
             for (String url : urls) {
                 try {
+                    Log.i("add check", url);
                     URL urlObject = new URL(url);
                     urlConnection = (HttpURLConnection) urlObject.openConnection();
 

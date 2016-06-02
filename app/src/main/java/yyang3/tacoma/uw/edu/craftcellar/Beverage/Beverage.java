@@ -242,7 +242,7 @@ public class Beverage implements Serializable {
                             obj.getString(Beverage.LOCATION), obj.getInt(Beverage.BYEAR),
                             obj.getInt(Beverage.PERCENTAGE), obj.getString(Beverage.BTYPE),
                             obj.getString(Beverage.STYLE));
-                    if (obj.getString(Beverage.DESCRIPTION) != null) {
+                    if (!obj.getString(Beverage.DESCRIPTION).equals("null")) {
                         beverageDetail.setmDescription(obj.getString(Beverage.DESCRIPTION));
                     }
                     if (!obj.getString(Beverage.IMAGEADD).equals("null")) {

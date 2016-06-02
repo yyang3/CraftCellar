@@ -5,6 +5,7 @@ package yyang3.tacoma.uw.edu.craftcellar;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -62,7 +62,6 @@ public class BeverageKindFragment extends Fragment {
                 }
                 emailReader.close();
                 user = t.toString();
-                Toast.makeText(getActivity(), user, Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,7 +105,8 @@ public class BeverageKindFragment extends Fragment {
                 allCellar.allBeverageList("Whiskey");
             }
         });
-
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.hide();
 
         return v;
     }

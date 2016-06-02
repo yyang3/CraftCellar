@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/all"
         android:layout_gravity="center"
-        android:text="Celler for all beverage"
+        android:text="Cellar for all beverage"
         android:onClick="allBeverageList" />
 
     <Button
@@ -28,26 +28,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/beer"
         android:layout_gravity="center"
-        android:text="Celler for beer" />
+        android:text="Cellar for beer" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rum"
         android:layout_gravity="center"
-        android:text="Celler for rum" />
+        android:text="Cellar for rum" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wine"
-        android:text="Celler for wine" />
+        android:text="Cellar for wine" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/whisky"
-        android:text="Celler for whisky" />
+        android:text="Cellar for whisky" />
 
 
 </LinearLayout>

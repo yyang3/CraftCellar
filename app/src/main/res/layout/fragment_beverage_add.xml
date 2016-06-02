@@ -60,7 +60,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beverage_abv"
+                android:hint="@string/beverage_abv"
                 android:id="@+id/detail_abv_add" />
             <TextView
                 android:layout_width="match_parent"

@@ -3,9 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/UWPurple</item>
+        <item name="colorPrimaryDark">@color/UWMetallicgold</item>
+        <item name="colorAccent">@color/UWLightgray</item>
+        <item name="android:buttonStyle">@style/uw_button2</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +18,33 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="EditTextStyle" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#F0F</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    <style name="PwdStyle" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/UWBlack</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+    <style name="uw_button">
+        <item name="android:background">@drawable/uw_button</item>
+        <item name="android:textColor">@color/uw_button_colors</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+    <style name="uw_button2">
+        <item name="android:background">@drawable/uw_button2</item>
+        <item name="android:textColor">@color/uw_button_colors2</item>
+        <item name="android:textSize">30dp</item>
+    </style>
 
 </resources>

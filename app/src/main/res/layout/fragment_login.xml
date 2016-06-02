@@ -22,14 +22,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sign_in_confirm"
-        android:hint="@string/sign_in_button"
-        android:onClick="SignIn" />
+        android:text="@string/sign_in_button"
+        android:onClick="SignIn"
+        style="@style/uw_button"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sign_in_register"
-        android:hint="@string/register_button"
-        android:onClick="toRegister" />
+        android:text="@string/register_button"
+        android:onClick="toRegister"
+        style="@style/uw_button"
+        />
 
 </LinearLayout>

@@ -1,10 +1,15 @@
 package yyang3.tacoma.uw.edu.craftcellar;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 import yyang3.tacoma.uw.edu.craftcellar.Beverage.Beverage;
 
@@ -70,9 +76,11 @@ public class BeverageAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = URLBuilder();
-                Log.i("TestAdd", url);
-                mListener.add(url);
-                getActivity().getSupportFragmentManager().popBackStack();
+                if (!url.isEmpty()) {
+                    mListener.add(url);
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+
             }
         });
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
@@ -80,6 +88,8 @@ public class BeverageAddFragment extends Fragment {
         fab.hide();
         return v;
     }
+
+
 
     /**
      * helper method to build up url for php
@@ -101,7 +111,6 @@ public class BeverageAddFragment extends Fragment {
                 }
                 emailReader.close();
                 result = t.toString();
-                Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,23 +123,88 @@ public class BeverageAddFragment extends Fragment {
         sb.append("&choice=");
         sb.append("add");
         sb.append("&brand=");
-        sb.append(myBrand.getText().toString());
+        if (myBrand.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter brand",Toast.LENGTH_LONG).show();
+            return "";
+        } else {
+            sb.append(myBrand.getText().toString());
+        };
         sb.append("&title=");
-        sb.append(myTitle.getText().toString());
+        if (myTitle.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter title",Toast.LENGTH_LONG).show();
+            return "";
+        } else {
+            sb.append(myTitle.getText().toString());
+        };
         sb.append("&style=");
-        sb.append(myStyle.getText().toString());
+        if (myStyle.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter style",Toast.LENGTH_LONG).show();
+            return "";
+        } else {
+            sb.append(myStyle.getText().toString());
+        };
         sb.append("&year=");
-        sb.append(myYear.getText().toString());
+
+        if (myYear.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter year",Toast.LENGTH_LONG).show();
+            return "";
+        }else {
+            int year = -1;
+            try {
+                 year= Integer.parseInt(myYear.getText().toString());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getActivity(),"Not an integer",Toast.LENGTH_LONG).show();
+                return "";
+            }
+            Calendar t = Calendar.getInstance();
+            if (year > t.get(Calendar.YEAR)) {
+                Toast.makeText(getActivity(),"Years should be in the future",Toast.LENGTH_LONG).show();
+                return "";
+            } else {
+                sb.append(myYear.getText().toString());
+            }
+        };
+
         sb.append("&percentage=");
-        sb.append(myAlcohol.getText().toString());
+        if (myAlcohol.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter percentage",Toast.LENGTH_LONG).show();
+            return "";
+        }else {
+            int percentage = -1;
+            try {
+                percentage= Integer.parseInt(myAlcohol.getText().toString());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getActivity(),"Not an integer",Toast.LENGTH_LONG).show();
+                return "";
+            }
+            if (percentage > 100 || percentage < 0) {
+                Toast.makeText(getActivity(),"Percentage should be between 0 and 100",Toast.LENGTH_LONG).show();
+                return "";
+            } else {
+                sb.append(myAlcohol.getText().toString());
+            }
+        };
         sb.append("&type=");
-        sb.append(myType.getText().toString());
+        if (myType.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter type",Toast.LENGTH_LONG).show();
+            return "";
+        } else {
+            sb.append(myType.getText().toString());
+        };
         sb.append("&description=");
-        sb.append(myDescription.getText().toString());
+        if (myDescription.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter description",Toast.LENGTH_LONG).show();
+            return "";
+        } else {
+            sb.append(myDescription.getText().toString());
+        };
         sb.append("&location=");
-        sb.append(myLocation.getText().toString());
-
-
+        if (myLocation.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(),"Need to enter location",Toast.LENGTH_LONG).show();
+            return "";
+        } else {
+            sb.append(myLocation.getText().toString());
+        };
 
         String url = sb.toString();
         return url;

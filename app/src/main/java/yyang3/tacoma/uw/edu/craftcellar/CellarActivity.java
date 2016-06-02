@@ -144,9 +144,6 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                     getString(R.string.LOGIN_FILE), Context.MODE_PRIVATE));
             userEmailWriter.write(email);
             userEmailWriter.close();
-            Toast.makeText(this, "Stored in successfully!", Toast.LENGTH_LONG).show();
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -243,17 +240,17 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
                     Toast.makeText(getApplicationContext(), "user successfully added!"
-                            , Toast.LENGTH_LONG)
+                            , Toast.LENGTH_SHORT)
                             .show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Failed to add: "
                                     + jsonObject.get("error")
-                            , Toast.LENGTH_LONG)
+                            , Toast.LENGTH_SHORT)
                             .show();
                 }
             } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Something wrong with the data" +
-                        e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Something wrong with the add user data" +
+                        e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.i("User", e.getMessage());
 
             }
@@ -312,9 +309,6 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
                     String username = (String) jsonObject.get("username");
-                    Toast.makeText(getApplicationContext(), username
-                            , Toast.LENGTH_LONG)
-                            .show();
                     setTitle(username + "'s Cellar");
 
                     if (mEmailDB == null) {
@@ -339,8 +333,6 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                                 getString(R.string.LOGIN_USERNAME), Context.MODE_PRIVATE));
                         usernameWriter.write(username);
                         usernameWriter.close();
-                        Toast.makeText(CellarActivity.this, "Stored in successfully!",
-                                Toast.LENGTH_LONG).show();
                     } catch (Exception te) {
                         te.printStackTrace();
                     }
@@ -353,13 +345,13 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                 } else {
                     Toast.makeText(getApplicationContext(), "Failed to log in: "
                                     + jsonObject.get("error")
-                            , Toast.LENGTH_LONG)
+                            , Toast.LENGTH_SHORT)
                             .show();
 
                 }
             } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Something wrong with the data" +
-                        e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Something wrong with the log in data" +
+                        e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.i("User", e.getMessage());
 
             }
@@ -396,7 +388,7 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
                     }
 
                 } catch (Exception e) {
-                    response = "Unable to update beverage, Reason: "
+                    response = "Unable to add beverage, Reason: "
                             + e.getMessage();
                 } finally {
                     if (urlConnection != null)
@@ -419,15 +411,18 @@ public class CellarActivity extends AppCompatActivity implements RegistrationFra
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             try {
+                Log.i("ResultTest", result);
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
-                    Log.i("Beverage Update", "success");
+                    Toast.makeText(getApplicationContext(), "successfully add the beverage",
+                            Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.i("Beverage Update", status);
+                    Toast.makeText(getApplicationContext(), "failed, reason: " + result,
+                            Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
-                Log.i("User", e.getMessage());
+
             }
         }
     }

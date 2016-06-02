@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -101,7 +102,11 @@ public class Beverage implements Serializable {
     }
 
     public void setmByear(int mByear) {
-        this.mByear = mByear;
+        if (mByear > Calendar.getInstance().get(Calendar.YEAR)) {
+            throw new IllegalArgumentException("cannot be year in the future");
+        } else {
+            this.mByear = mByear;
+        }
     }
 
     public int getmPercentage() {
@@ -109,7 +114,11 @@ public class Beverage implements Serializable {
     }
 
     public void setmPercentage(int mPercentage) {
-        this.mPercentage = mPercentage;
+        if (mPercentage > 100 || mPercentage < 0) {
+            throw new IllegalArgumentException("range between 0 to 100");
+        } else {
+            this.mPercentage = mPercentage;
+        }
     }
 
     public String getMyBtype() {
@@ -175,7 +184,11 @@ public class Beverage implements Serializable {
     }
 
     public void setMid(int mid) {
-        this.mid = mid;
+        if (mid < 0) {
+            throw new IllegalArgumentException("id cannot be less than 0");
+        } else {
+            this.mid = mid;
+        }
     }
 
     public String getmImageAdd() {
@@ -199,7 +212,11 @@ public class Beverage implements Serializable {
     }
 
     public void setRate(int rate) {
-        this.rate = rate;
+        if (rate > 10 || rate < 0) {
+            throw new IllegalArgumentException("rate can only be between 0 and 10");
+        } else {
+            this.rate = rate;
+        }
     }
 
     /**
@@ -210,6 +227,7 @@ public class Beverage implements Serializable {
      * @return string beverage
      */
     public static String parseBeveragesJSON(String beverageJSON, List<Beverage> BeverageList) {
+        Log.i("JSON STRING", beverageJSON);
         String reason = null;
         if (beverageJSON != null) {
             try {

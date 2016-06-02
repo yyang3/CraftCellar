@@ -113,9 +113,6 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        Bundle bundle = new Bundle();
-        bundle.putString("Email", mEmail.getText().toString());
-        getActivity();
         super.onDetach();
     }
 

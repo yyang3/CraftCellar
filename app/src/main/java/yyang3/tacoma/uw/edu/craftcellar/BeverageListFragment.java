@@ -66,6 +66,7 @@ public class BeverageListFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
     }
 
     /**
@@ -104,7 +105,6 @@ public class BeverageListFragment extends Fragment {
                 }
                 emailReader.close();
                 result = t.toString();
-                Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
             e.printStackTrace();

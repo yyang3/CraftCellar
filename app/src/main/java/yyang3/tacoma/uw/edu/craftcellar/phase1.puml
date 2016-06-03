@@ -64,6 +64,21 @@ class RegistrationFragment {
 interface UserRegistrationListener {
     + addUser(String url) : void;
 }
+class BeverageAddFragment {
+    - myBrand : EditText
+    - myTitle : EditText
+    - myStyle : EditText
+    - myYear : EditText
+    - myAlcohol : EditText
+    - myType : EditText
+    - myDescription : EditText
+    - myLocation : EditText
+    - mListener : AddListener
+    - URLBuilder () : String
+}
+interface AddListener {
+    +add(String url) : void
+}
 
 class BeverageListFragment {
     + ARG_COLUMN_COUNT : String
@@ -79,6 +94,8 @@ class BeverageListFragment {
     + onDetach() : void
 
 }
+
+
 
 
 interface OnListFragmentInteractionListener {
@@ -100,6 +117,7 @@ class CellarActivity {
     + SignIn(String email, String url) : void
     + allBeverageList() : void
     + onListFragmentInteraction(Beverage item) : void
+    +  add(String url) : void
 }
 
 class AddUserTask{
@@ -218,6 +236,10 @@ class Beverage {
 
      + parseBeveragesJSON(String beverageJSON, List<Beverage> BeverageList) : String
 }
+class BeverageAndCellarAddTask{
+    + doInBackground(String... urls) : String
+    + onPostExecute(String result) : void
+}
 
 MyBeverageRecyclerViewAdapter o-- Beverage
 MyBeverageRecyclerViewAdapter o-- OnListFragmentInteractionListener
@@ -226,7 +248,6 @@ BeverageDetailFragment  ..> Beverage
 BeverageDetailFragment  ..> BeverageUpdateTask
 BeverageDetailFragment  ..> ImageLoadTask
 BeverageKindFragment  --> allBeverageInteractionListener
-RegistrationFragment  --> UserRegistrationListener
 BeverageListFragment --> OnListFragmentInteractionListener
 BeverageListFragment ..> DownloadBeverageTask
 OnListFragmentInteractionListener  ..> Beverage
@@ -242,8 +263,12 @@ CellarActivity ..> AddUserTask
 CellarActivity ..> LoginTask
 CellarActivity ..> BeverageListFragment
 CellarActivity ..> BeverageDetailFragment
+CellarActivity ..> BeverageAddFragment
+CellarActivity ..> BeverageAndCellarAddTask
+CellarActivity <|.. AddListener
 LoginTask ..> BeverageKindFragment
 RegistrationFragment --> UserRegistrationListener
+BeverageAddFragment --> AddListener
 
 
 @enduml
